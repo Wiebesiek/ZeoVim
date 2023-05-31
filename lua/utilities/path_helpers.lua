@@ -71,7 +71,7 @@ M.config = {
 }
 function M.setup(opts)
     if opts ~= nil then
-      M.config.values = vim.tbl_deep_extend("force", M.config.values, opts)
+      M.config = vim.tbl_deep_extend("force", M.config, opts)
     end
 end
 function M.OuterMostSln(path)
