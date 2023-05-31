@@ -4,7 +4,7 @@ require("mason-lspconfig").setup({
 	ensure_installed = { "lua_ls", "omnisharp", "tsserver", "volar", "pylsp" }
 })
 require("mason-nvim-dap").setup({
-	ensure_installed = { "netcoredbg", "delve" } -- todo: add ts,js
+	ensure_installed = { "python", "coreclr", "node2", "js", "chrome" }
 })
 require("mason-null-ls").setup({
 	ensure_installed = { "prettierd", "csharpier" }

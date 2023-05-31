@@ -127,6 +127,7 @@ require('packer').startup(function(use)
 		"mfussenegger/nvim-dap",
 		requires = {
 			{ "jay-babu/mason-nvim-dap.nvim", lock = false },
+			{ "jay-babu/mason-null-ls.nvim", lock = false },
 			{ "rcarriga/nvim-dap-ui", lock = true }
 		},
 		lock = true, -- TODO: lock. this. down.
