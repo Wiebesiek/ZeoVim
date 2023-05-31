@@ -126,10 +126,7 @@ require('packer').startup(function(use)
 	use {
 		"mfussenegger/nvim-dap",
 		requires = {
-			-- Currently, I need custom configuration that mason-nvim-dap isn't providing.
-			-- Leaving here though as the repo is a great resource for looking at how to configure
-			-- dap
-			-- { "jay-babu/mason-nvim-dap.nvim", lock = false },
+			{ "jay-babu/mason-nvim-dap.nvim", lock = false },
 			{ "rcarriga/nvim-dap-ui", lock = true }
 		},
 		lock = true, -- TODO: lock. this. down.
