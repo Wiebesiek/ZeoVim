@@ -1,8 +1,12 @@
-local status, tokyonight = pcall(require, "tokyonight")
-if (not status) then
-	error("Tokyonight colorscheme not installed. Please run PackerSync.")
-end
-tokyonight.setup({
+--local status, tokyonight = pcall(require, "tokyonight")
+--if (not status) then
+--	error("Tokyonight colorscheme not installed. Please run PackerSync.")
+--end
+return {{
+    "folke/tokyonight.nvim",
+lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+opts = {
   style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
   light_style = "day", -- The theme is used when the background is set to light
   transparent = false, -- Enable this to disable setting the background color
@@ -34,14 +38,19 @@ tokyonight.setup({
   ---@param highlights Highlights
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
-})
+},
+config = function() vim.cmd([[colorscheme tokyonight]]) end
+},
 
-local status,  gruvbox = pcall(require, "gruvbox")
-if (not status) then
-	error("Gruvbox colorscheme not installed. Please run PackerSync.")
-end
-
-gruvbox.setup({
+-- local status,  gruvbox = pcall(require, "gruvbox")
+-- if (not status) then
+-- 	error("Gruvbox colorscheme not installed. Please run PackerSync.")
+-- end
+-- 
+{
+	"ellisonleao/gruvbox.nvim",
+opts =
+{
   undercurl = true,
   underline = true,
   bold = true,
@@ -62,14 +71,16 @@ gruvbox.setup({
   overrides = {},
   dim_inactive = false,
   transparent_mode = true,
-})
+}
+}
+}
 
-if (not status) then
-	error("Tokyonight colorscheme not installed. Please run PackerSync.")
-end
+-- if (not status) then
+--	error("Tokyonight colorscheme not installed. Please run PackerSync.")
+-- end
 -- Set defalt, complain if not there
 -- status = pcall(function () vim.cmd.colorscheme("tokyonight") end) -- use tokyonight to inherit from config
-status = pcall(function () vim.cmd.colorscheme("gruvbox") end)
-if (not status) then
-	error("Colorscheme not installed. Please run PackerSync.")
-end
+--status = pcall(function () vim.cmd.colorscheme("gruvbox") end)
+--if (not status) then
+--	error("Colorscheme not installed. Please run PackerSync.")
+--end

@@ -1,9 +1,4 @@
-local status, lspconfig = pcall(require, "lspconfig")
-if (not status) then
-	print("lua_ls not loaded")
-	return
-end
-lspconfig.lua_ls.setup({
+require("lspconfig").lua_ls.setup({
 	on_attach = function()
 		print("Lua_ls attached")
 	end,

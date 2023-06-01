@@ -1,4 +1,4 @@
-require('plugins')
 require('options')
-require('mappings')
+require('zeovim.config.lazy')
+require('zeovim.core.mappings')
 
