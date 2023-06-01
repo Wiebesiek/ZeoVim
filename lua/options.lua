@@ -11,6 +11,6 @@ vim.wo.wrap = false
 vim.opt.termguicolors = true -- TODO: this okay?
 
 -- disabled for nvim-tree (see docs)
---vim.g.loaded_netrw = 1
---vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 

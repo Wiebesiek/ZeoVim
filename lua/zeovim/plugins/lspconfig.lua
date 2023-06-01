@@ -13,7 +13,6 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		lazy = true,
 		opts = {
 			ensure_installed = { "lua_ls", "omnisharp", "tsserver", "volar", "pylsp" }
 		},
@@ -23,14 +22,12 @@ return {
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
-		lazy = true,
 		opts = {
 			ensure_installed = { "python", "coreclr", "node2", "js", "chrome" }
 		},
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		lazy = true,
 		opts = {
 			ensure_installed = { "prettierd", "csharpier" }
 		},

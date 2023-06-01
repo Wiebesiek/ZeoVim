@@ -1,6 +1,10 @@
+local builtin = function()
+	return require('telescope.builtin')
+end
+local neotest = function ()
+	return require('neotest')
+end
 local set = vim.keymap.set
-local builtin = require('telescope.builtin')
-local neotest = require('neotest')
 
 set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
@@ -9,23 +13,23 @@ set('n', '<leader>e', ":Neotree toggle <CR>", {})
 ---------------
 -- TELESCOPE --
 ---------------
-set('n', '<leader>gb', builtin.git_branches, {})
-set('n', '<leader>gc', builtin.git_commits, {})
-set('n', '<leader>gt', builtin.git_status, {})
-set('n', '<leader>ff', builtin.find_files, {})
-set('n', '<leader>fg', builtin.live_grep, {})
-set('n', '<leader>fb', builtin.buffers, {})
-set('n', '<leader>fh', builtin.help_tags, {})
+set('n', '<leader>gb', builtin().git_branches, {})
+set('n', '<leader>gc', builtin().git_commits, {})
+set('n', '<leader>gt', builtin().git_status, {})
+set('n', '<leader>ff', builtin().find_files, {})
+set('n', '<leader>fg', builtin().live_grep, {})
+set('n', '<leader>fb', builtin().buffers, {})
+set('n', '<leader>fh', builtin().help_tags, {})
 set('n', "<leader>fw",
 	function()
-		builtin.live_grep {
+		builtin().live_grep {
 			additional_args = function(args)
 				return vim.list_extend(args, { "--hidden", "--no-ignore" })
 			end,
 		}
 	end
 )
-set('n', '<leader>f<CR>', builtin.resume, {})
+set('n', '<leader>f<CR>', builtin().resume, {})
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
 set('n', '<leader>q', vim.diagnostic.setloclist)
@@ -57,10 +61,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
 		set('n', 'gD', vim.lsp.buf.declaration, opts)
-		set('n', 'gd', function() builtin.lsp_definitions() end, opts)
-		set('n', 'gi', function() builtin.lsp_implementations() end, opts)
+		set('n', 'gd', function() builtin().lsp_definitions() end, opts)
+		set('n', 'gi', function() builtin().lsp_implementations() end, opts)
 		set('n', 'gr', function()
-			builtin.lsp_references({
+			builtin().lsp_references({
 				initial_mode = "insert", -- NOT DEFAULT
 				trim_text = true,
 				include_current_line = true,
@@ -71,8 +75,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				fname_width = 80,
 			})
 		end, opts)
-		set('n', 'go', function() builtin.lsp_document_symbols() end, opts)
-		set('n', 'gO', function() builtin.lsp_workspace_symbols() end, opts)
+		set('n', 'go', function() builtin().lsp_document_symbols() end, opts)
+		set('n', 'gO', function() builtin().lsp_workspace_symbols() end, opts)
 		set('n', 'K', vim.lsp.buf.hover, opts)
 		set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 		set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -104,15 +108,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -----------------
 local neotest_dap = function()
 	if vim.bo.filetype == "cs" then
-		neotest.run.run({ strategy = require("neotest-dotnet.strategies.netcoredbg"), is_custom_dotnet_debug = true })
+		neotest().run.run({ strategy = require("neotest-dotnet.strategies.netcoredbg"), is_custom_dotnet_debug = true })
 	else
-		neotest.run.run({ strategy = "dap" })
+		neotest().run.run({ strategy = "dap" })
 	end
 end
 
 set('n', '<leader>td', neotest_dap)
-set('n', '<leader>tn', function() neotest.run.run() end)
-set('n', '<leader>ts', function() neotest.run.run({suite = true}) end)
-set('n', '<leader>tt', function() neotest.output_panel.toggle() end)
-set('n', '<leader>tw', function() neotest.output.open({ enter = true }) end)
-set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand("%")) end)
+set('n', '<leader>tn', function() neotest().run.run() end)
+set('n', '<leader>ts', function() neotest().run.run({suite = true}) end)
+set('n', '<leader>tt', function() neotest().output_panel.toggle() end)
+set('n', '<leader>tw', function() neotest().output.open({ enter = true }) end)
+set('n', '<leader>tf', function() neotest().run.run(vim.fn.expand("%")) end)
