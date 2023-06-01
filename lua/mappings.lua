@@ -112,6 +112,7 @@ end
 
 set('n', '<leader>td', neotest_dap)
 set('n', '<leader>tn', function() neotest.run.run() end)
+set('n', '<leader>ts', function() neotest.run.run({suite = true}) end)
 set('n', '<leader>tt', function() neotest.output_panel.toggle() end)
 set('n', '<leader>tw', function() neotest.output.open({ enter = true }) end)
 set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand("%")) end)
