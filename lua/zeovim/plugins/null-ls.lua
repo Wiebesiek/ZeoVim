@@ -1,6 +1,7 @@
-return{
+return {
 	"jose-elias-alvarez/null-ls.nvim",
 	event = { "BufReadPost", "BufNewFile" },
+	dependencies = { "jay-babu/mason-null-ls.nvim" },
 	opts = function()
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -35,7 +36,7 @@ return{
 			end
 		end
 		local null_ls = require("null-ls")
-		return{
+		return {
 			debug = true,
 			sources = {
 				null_ls.builtins.formatting.csharpier,
@@ -53,7 +54,7 @@ return{
 
 		}
 	end,
-	config = function (_, opts)
+	config = function(_, opts)
 		require("null-ls").setup(opts)
 	end
 }
