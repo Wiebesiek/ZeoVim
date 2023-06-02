@@ -1,6 +1,7 @@
 return {
 	'folke/zen-mode.nvim',
-	cmd = "Zenmode",
+	lazy = true,
+	cmd = "ZenMode",
 	opts = {
 		window = {
 			backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
@@ -62,5 +63,5 @@ return {
 		-- callback where you can add custom code when the Zen window closes
 		on_close = function()
 		end,
-	}
+	},
 }

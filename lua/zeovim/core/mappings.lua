@@ -10,6 +10,8 @@ set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
 set('n', '<leader>e', ":Neotree toggle <CR>", {})
+set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", {})
+-- map <leader><C-G> :let @+ = expand('%:p')<CR>
 ---------------
 -- TELESCOPE --
 ---------------
