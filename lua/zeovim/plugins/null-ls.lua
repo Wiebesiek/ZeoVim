@@ -1,5 +1,6 @@
 return{
 	"jose-elias-alvarez/null-ls.nvim",
+	event = { "BufReadPost", "BufNewFile" },
 	opts = function()
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -52,4 +53,7 @@ return{
 
 		}
 	end,
+	config = function (_, opts)
+		require("null-ls").setup(opts)
+	end
 }

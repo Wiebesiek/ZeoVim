@@ -88,4 +88,7 @@ end
 function M.GetNetCoreDbgPath()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe')
 end
+function M.GetOmniSharpDll()
+	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll')
+end
 return M

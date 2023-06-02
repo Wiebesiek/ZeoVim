@@ -1,7 +1,8 @@
 ---------------
 -- OMNISHARP --
 ---------------
-require("lspconfig").omnisharp.setup {
+require("lspconfig").omnisharp.setup({
+	cmd = {"dotnet", require("utilities.path_helpers").GetOmniSharpDll()},
 	on_attach = function(client, _)
 		-- This is a hack that is needed with omnisharp in it's current state. This the result of a bug in Rosyln.
 		if client.name == "omnisharp" then
@@ -23,10 +24,9 @@ require("lspconfig").omnisharp.setup {
 		local lspconfig_pattern = root_pattern('*.sln')(path)
 		--]]
 		local root_pattern = require('lspconfig.util').root_pattern
-		local pattern = require("utilities.path_helpers").OuterMostSln(path) or root_pattern("*.csproj")(path)
-		return pattern
+		return require("utilities.path_helpers").OuterMostSln(path) or root_pattern("*.csproj")(path)
 	end
-}
+})
 require("lspconfig").tsserver.setup {}
 require("lspconfig").volar.setup {}
 require("lspconfig").pylsp.setup {}
