@@ -22,12 +22,6 @@ return {
 		},
 	},
 	{
-		"jay-babu/mason-nvim-dap.nvim",
-		opts = {
-			ensure_installed = { "python", "coreclr", "node2", "js", "chrome" }
-		},
-	},
-	{
 		"jay-babu/mason-null-ls.nvim",
 		lazy = true,
 		opts = {

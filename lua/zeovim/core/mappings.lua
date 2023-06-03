@@ -15,13 +15,13 @@ set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", {})
 ---------------
 -- TELESCOPE --
 ---------------
-set('n', '<leader>gb', builtin().git_branches, {})
-set('n', '<leader>gc', builtin().git_commits, {})
-set('n', '<leader>gt', builtin().git_status, {})
-set('n', '<leader>ff', builtin().find_files, {})
-set('n', '<leader>fg', builtin().live_grep, {})
-set('n', '<leader>fb', builtin().buffers, {})
-set('n', '<leader>fh', builtin().help_tags, {})
+set('n', '<leader>gb', function() builtin().git_branches() end, {})
+set('n', '<leader>gc', function() builtin().git_commits() end, {})
+set('n', '<leader>gt', function() builtin().git_status() end, {})
+set('n', '<leader>ff', function() builtin().find_files() end, {})
+set('n', '<leader>fg', function() builtin().live_grep() end, {})
+set('n', '<leader>fb', function() builtin().buffers() end, {})
+set('n', '<leader>fh', function() builtin().help_tags() end, {})
 set('n', "<leader>fw",
 	function()
 		builtin().live_grep {
@@ -31,7 +31,7 @@ set('n', "<leader>fw",
 		}
 	end
 )
-set('n', '<leader>f<CR>', builtin().resume, {})
+set('n', '<leader>f<CR>', function() builtin().resume() end, {})
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
 set('n', '<leader>q', vim.diagnostic.setloclist)
