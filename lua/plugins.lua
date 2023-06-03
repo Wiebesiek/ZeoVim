@@ -142,12 +142,11 @@ require('packer').startup(function(use)
 			{
 				"nvim-lua/plenary.nvim",
 				"nvim-treesitter/nvim-treesitter",
+			"Issafalcon/neotest-dotnet"
 			},
 		},
 		lock = true,
 	})
-	use "antoinemadec/FixCursorHold.nvim"
-	use "Issafalcon/neotest-dotnet"
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

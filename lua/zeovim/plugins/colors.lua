@@ -1,7 +1,7 @@
 -- TODO: Add more colorschemes
 -- TODO: Extract transparent and italics to a config value.
 local italics = false
-local transparent = true
+local transparent = false
 local dim_inactive = false
 return {
 	{
@@ -121,6 +121,5 @@ return {
 				-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 			},
 		},
-
 	}
 }
