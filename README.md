@@ -22,11 +22,8 @@ Clone config into `%USERPROFILE%\AppData\Local\nvim`
 - `git clone git@github.com:Wiebesiek/ZeoVim.git`
 
 ## 🎨 Aesthetics
-### 🔤 Font
-[Comic shans](https://github.com/shannpersand/comic-shanns) nerd font in mono.
-### 🟤 Colorscheme
-[Gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
-### 💻 Terminal
-Windows terminal with gruvbox friendly background.
+- 🔤 Font - [Comic shans](https://github.com/shannpersand/comic-shanns) nerd font in mono.
+- 🟤 Colorscheme - [Gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
+- 💻 Terminal - Windows terminal with gruvbox friendly background.
 
 
