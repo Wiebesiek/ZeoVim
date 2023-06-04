@@ -1,17 +1,21 @@
 local builtin = function()
 	return require('telescope.builtin')
 end
-local neotest = function ()
+local neotest = function()
 	return require('neotest')
 end
 local set = vim.keymap.set
+local current_file_dir = function()
+	return vim.fn.expand('%:p:h')
+end
 
 set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
 set('n', '<leader>e', ":Neotree toggle <CR>", {})
 set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", {})
--- map <leader><C-G> :let @+ = expand('%:p')<CR>
+set('n', '<leader>nt', ":!start cmd /k cd %:p:h<CR>",
+	{ desc = "Opens a new terminal in current file directory" }) -- get a float term plugin and use it?
 ---------------
 -- TELESCOPE --
 ---------------
@@ -118,7 +122,7 @@ end
 
 set('n', '<leader>td', neotest_dap)
 set('n', '<leader>tn', function() neotest().run.run() end)
-set('n', '<leader>ts', function() neotest().run.run({suite = true}) end)
+set('n', '<leader>ts', function() neotest().run.run({ suite = true }) end)
 set('n', '<leader>tt', function() neotest().output_panel.toggle() end)
 set('n', '<leader>tw', function() neotest().output.open({ enter = true }) end)
 set('n', '<leader>tf', function() neotest().run.run(vim.fn.expand("%")) end)

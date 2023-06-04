@@ -40,7 +40,7 @@ return {
 		}
 		dashboard.section.buttons.val = {
 			dashboard.button("spc f f", "  Find File", ":Telescope find_files<CR>"),
-			dashboard.button("spc f f", "  Grep It", ":Telescope live_grep<CR>"),
+			dashboard.button("spc f g", "  Grep It", ":Telescope live_grep<CR>"),
 			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
 			dashboard.button("q", "  Quit ZeoVim", ":qa<CR>"),
 		}
