@@ -1,7 +1,4 @@
 require("lspconfig").lua_ls.setup({
-	on_attach = function()
-		print("Lua_ls attached")
-	end,
 	settings = {
 		Lua = {
 			runtime = {
