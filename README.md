@@ -1,5 +1,5 @@
 # ZeoVim
-![image](https://github.com/Wiebesiek/ZeoVim/assets/44254336/cdbacf94-fd9f-4554-abec-69043b1696d8)
+![image](https://github.com/Wiebesiek/ZeoVim/assets/44254336/8f2a5d73-b5d9-4d79-a8df-ddcdbbe1bd62)
 
 My neovim config. Oriented around dotnet and typescript development on a windows device.
 
