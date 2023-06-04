@@ -9,8 +9,8 @@ My neovim config. Oriented around dotnet and typescript development on a windows
 - 🔬 DAP - including netcoredbg for dotnet debugging.
 - 🧪 [Neotest](https://github.com/nvim-neotest/neotest) for running unit tests.
 - 🧱 [Mason](https://github.com/williamboman/mason.nvim) to allow auto install of dap, lsp, and formatters such as csharpier.
-- 🛩️ [Copilot](https://github.com/github/copilot.vim) as your AI assistant.
-- 👨‍🔬 Pathhelper utilites to wire up omnisharp and netcoredbg
+- 🛩️ [Copilot](https://github.com/github/copilot.vim) for an AI assistant.
+- 👨‍🔬 Path helper utilites to wire up omnisharp and netcoredbg.
 ## 🔧 Setup
 
 ### 📦 **Installation of Dependencies**
