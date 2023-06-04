@@ -1,7 +1,7 @@
 -- TODO: Add more colorschemes
 -- TODO: Extract transparent and italics to a config value.
 local italics = false
-local transparent = false
+local transparent = true
 local dim_inactive = false
 return {
 	{
