@@ -1,15 +1,40 @@
-local root_pattern = require('lspconfig.util').root_pattern
 local M = {}
+-- TODO: can these be local?
 M.dotnet_last_proj_path = nil
 M.dotnet_last_dll_path = nil
+M.project_found = false
+
+-- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
+local function GetStaticValues(path)
+	local projects = M.config.projects
+	for _, project in ipairs(projects) do
+		if project.base_path and string.find(path, project.base_path) then
+			-- TODO: nil check
+			M.dotnet_last_proj_path = project.dotnet_proj_file
+			M.dotnet_last_dll_path = project.dotnet_dll_path
+			M.project_found = true
+			return true
+		end
+	end
+	return false
+end
 
 local function dotnet_build_project()
 	local default_path = vim.fn.getcwd() .. '/'
 	if M.dotnet_last_proj_path ~= nil then
 		default_path = M.dotnet_last_proj_path
 	end
+
+	-- Early exit if we can find the project in the config
+	if GetStaticValues(vim.fs.normalize(default_path)) then
+		print('Found project in config, using last_proj_path: ' .. M.dotnet_last_proj_path)
+		print('early return')
+		return
+	end
+
 	local path = vim.fn.input('Path to your *proj file', default_path, 'file')
 	M.dotnet_last_proj_path = path
+	-- TODO: Need to figure out how to temporarily change the cwd
 	local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
 	print('')
 	print('Cmd to execute: ' .. cmd)
@@ -23,18 +48,19 @@ end
 
 local function dotnet_get_dll_path()
 	local request = function()
-		return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+		return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
 	end
 
 	if M.dotnet_last_dll_path == nil then
 		M.dotnet_last_dll_path = request()
+			print('Dll path: ' .. M.dotnet_last_dll_path)
 	else
-		if vim.fn.confirm('Do you want to change the path to dll?\n' .. M.dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
+		if M.project_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. M.dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
 			M.dotnet_last_dll_path = request()
+			print('Dll path: ' .. M.dotnet_last_dll_path)
 		end
 	end
 
-	print('Dll path: ' .. M.dotnet_last_dll_path)
 	return M.dotnet_last_dll_path
 end
 
@@ -53,31 +79,21 @@ local function search_up(project_root, path, pattern_func)
 	return search_up(parent_root, parent, pattern_func)
 end
 
-
--- TODO: How to find the project that houses the .dll?
--- git ls-files **/launchSettings.json
--- This could be used to find the project name as it will be <project_name>/properties/launchSettings.json
--- Then you would need to use something like `fd --no-ignore <project_name>.dll` to find the path.
--- This would probably still have issues (for instance, there could be .net5 and .net6 folders in the debug), but will work for 95% of projects.
--- ^ This will work as long as you only proceed if you successfully find a single .dll.
--- In the event you don't, maybe return nil and use telescope.
-
---[[
-The standard way of obtaining the root directory does not work well for nested projects
-in the dotnet ecosystem. This function will search up the directory tree.
---]]
 M.config = {
-	default_lsp_root = {"outerMostSln","csProj"}
+	default_lsp_root = {"outerMostSln","csProj"}, -- TODO: currently, not being used
 }
 function M.setup(opts)
-    if opts ~= nil then
-      M.config = vim.tbl_deep_extend("force", M.config, opts)
-    end
+	if opts ~= nil then
+		M.config = vim.tbl_deep_extend("force", M.config, opts)
+	end
 end
+
 function M.OuterMostSln(path)
+	local root_pattern = require('lspconfig.util').root_pattern
 	return search_up(nil, path, root_pattern('*.sln'))
 end
 
+-- Entry point for dap
 function M.GetDllPath()
 	if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
 		dotnet_build_project()
