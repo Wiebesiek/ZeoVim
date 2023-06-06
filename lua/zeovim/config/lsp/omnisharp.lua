@@ -27,6 +27,3 @@ require("lspconfig").omnisharp.setup({
 		return require("utilities.path_helpers").OuterMostSln(path) or root_pattern("*.csproj")(path)
 	end
 })
-require("lspconfig").tsserver.setup {}
-require("lspconfig").volar.setup {}
-require("lspconfig").pylsp.setup {}

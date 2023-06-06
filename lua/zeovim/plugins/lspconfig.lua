@@ -63,8 +63,7 @@ return {
 			}
 		},
 		config = function()
-			require("zeovim.config.omni")
-			require("zeovim.config.lua_ls")
+			require("zeovim.config.lsp")
 		end
 	},
 }
