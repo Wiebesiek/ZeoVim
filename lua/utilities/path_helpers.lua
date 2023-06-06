@@ -1,9 +1,9 @@
 local M = {}
--- TODO: can these be local?
-M.dotnet_last_proj_path = nil
-M.dotnet_last_dll_path = nil
-M.project_found = false
-M.dotnet_debug_cwd = nil
+
+local dotnet_last_proj_path = nil
+local dotnet_last_dll_path = nil
+local dotnet_debug_cwd = nil
+local project_found = false
 
 -- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
 local function GetStaticValues(path)
@@ -11,10 +11,10 @@ local function GetStaticValues(path)
 	for _, project in ipairs(projects) do
 		if project.base_path and string.find(path, project.base_path) then
 			-- TODO: nil check
-			M.dotnet_last_proj_path = project.dotnet_proj_file
-			M.dotnet_last_dll_path = project.dotnet_dll_path
-			M.dotnet_debug_cwd = project.dotnet_debug_cwd
-			M.project_found = true
+			dotnet_last_proj_path = project.dotnet_proj_file
+			dotnet_last_dll_path = project.dotnet_dll_path
+			dotnet_debug_cwd = project.dotnet_debug_cwd
+			project_found = true
 			return true
 		end
 	end
@@ -23,19 +23,18 @@ end
 
 local function dotnet_build_project()
 	local default_path = vim.fn.getcwd() .. '/'
-	if M.dotnet_last_proj_path ~= nil then
-		default_path = M.dotnet_last_proj_path
+	if dotnet_last_proj_path ~= nil then
+		default_path = dotnet_last_proj_path
 	end
 
 	-- Early exit if we can find the project in the config
 	if GetStaticValues(vim.fs.normalize(default_path)) then
-		print('Found project in config, using last_proj_path: ' .. M.dotnet_last_proj_path)
-		print('early return')
+		print('Found project in config, using last_proj_path: ' .. dotnet_last_proj_path)
 		return
 	end
 
 	local path = vim.fn.input('Path to your *proj file', default_path, 'file')
-	M.dotnet_last_proj_path = path
+	dotnet_last_proj_path = path
 	-- TODO: Need to figure out how to temporarily change the cwd
 	local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
 	print('')
@@ -53,17 +52,18 @@ local function dotnet_get_dll_path()
 		return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
 	end
 
-	if M.dotnet_last_dll_path == nil then
-		M.dotnet_last_dll_path = request()
-		print('Dll path: ' .. M.dotnet_last_dll_path)
+	if dotnet_last_dll_path == nil then
+		dotnet_last_dll_path = request()
+		print('Dll path: ' .. dotnet_last_dll_path)
 	else
-		if M.project_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. M.dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
-			M.dotnet_last_dll_path = request()
-			print('Dll path: ' .. M.dotnet_last_dll_path)
+		if project_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
+			print('project_found: ' .. tostring(project_found))
+			dotnet_last_dll_path = request()
+			print('Dll path: ' .. dotnet_last_dll_path)
 		end
 	end
 
-	return M.dotnet_last_dll_path
+	return dotnet_last_dll_path
 end
 
 -- Recursively search up the directory tree
@@ -115,7 +115,7 @@ function M.GetDebugCwd()
 	print("Calling GetDebugCwd")
 	if GetStaticValues(vim.fs.normalize(vim.fn.getcwd() .. '/'))
 	then
-		return M.dotnet_debug_cwd
+		return dotnet_debug_cwd
 	end
 end
 
