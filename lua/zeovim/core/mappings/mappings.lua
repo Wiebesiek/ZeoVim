@@ -12,9 +12,32 @@ set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
 set('n', '<leader>e', ":Neotree toggle <CR>", { desc = "Toggle Neotree" })
 set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", { desc = "Copy current file path to clipboard" })
-set('n', '<leader>nt', ":!start cmd /k cd %:p:h<CR>",
-	{ desc = "Opens a new terminal in current file directory" }) -- get a float term plugin and use it?
+set('n', '<leader>nt', ":ToggleTerm dir=" .. current_file_dir() .. "<CR>",
+	{ desc = "Opens a new terminal in current file directory" })
 
+-- TODO: Creat Custom terminal for dotnet commands
+-- TODO: Needs to be destroyed on close though
+-- CUSTOM TERMINAL USAGE
+--
+-- >lua
+--     local Terminal  = require('toggleterm.terminal').Terminal
+--     local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+--     
+--     function _lazygit_toggle()
+--       lazygit:toggle()
+--     end
+--     
+--     vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+-- <
+--
+-- This will create a new terminal, but the specified command is not being run
+-- immediately. The command will run once the terminal is opened. Alternatively
+-- `term:spawn()` can be used to start the command in a background buffer without
+-- opening a terminal window yet. If the `hidden` key is set to true, this
+-- terminal will not be toggled by normal toggleterm commands such as
+-- `:ToggleTerm` or the open mapping. It will only open and close by using the
+-- returned terminal object. A mapping for toggling the terminal can be set as in
+-- the example above.
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
 set('n', '<leader>q', vim.diagnostic.setloclist)
@@ -28,9 +51,7 @@ set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
 set('i', '<C-j>', 'copilot#Accept("<CR>")', { noremap = true, silent = true, expr = true, replace_keycodes = false })
 
 
--------------
--- LSP MAPPINGS --
-
+--- TODO: Move to mappings.lsp
 -------------------------------------------------------------
 -----------------------LspAttach----------------------------
 -- Use LspAttach autocommand to only map the following keys
@@ -51,6 +72,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- end
 		local opts = { buffer = ev.buf }
 		set('n', 'gD', vim.lsp.buf.declaration, opts)
+		-- TODO: Can these be sourced from mappings.telescope?
 		set('n', 'gd', function() builtin().lsp_definitions() end, opts)
 		set('n', 'gi', function() builtin().lsp_implementations() end, opts)
 		set('n', 'gr', function()
