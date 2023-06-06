@@ -61,15 +61,13 @@ set('i', '<C-j>', 'copilot#Accept("<CR>")', { noremap = true, silent = true, exp
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o> -- what is this?
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local buf = ev.buf -- TODO: anonymous funciton scoping issue?
 		local opts = function(description)
 			return {
-				-- buffer = buf,
+				buffer = true,
 				desc = description
 			}
 		end
