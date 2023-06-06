@@ -3,6 +3,7 @@ local M = {}
 M.dotnet_last_proj_path = nil
 M.dotnet_last_dll_path = nil
 M.project_found = false
+M.dotnet_debug_cwd = nil
 
 -- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
 local function GetStaticValues(path)
@@ -12,6 +13,7 @@ local function GetStaticValues(path)
 			-- TODO: nil check
 			M.dotnet_last_proj_path = project.dotnet_proj_file
 			M.dotnet_last_dll_path = project.dotnet_dll_path
+			M.dotnet_debug_cwd = project.dotnet_debug_cwd
 			M.project_found = true
 			return true
 		end
@@ -53,7 +55,7 @@ local function dotnet_get_dll_path()
 
 	if M.dotnet_last_dll_path == nil then
 		M.dotnet_last_dll_path = request()
-			print('Dll path: ' .. M.dotnet_last_dll_path)
+		print('Dll path: ' .. M.dotnet_last_dll_path)
 	else
 		if M.project_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. M.dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
 			M.dotnet_last_dll_path = request()
@@ -80,7 +82,7 @@ local function search_up(project_root, path, pattern_func)
 end
 
 M.config = {
-	default_lsp_root = {"outerMostSln","csProj"}, -- TODO: currently, not being used
+	default_lsp_root = { "outerMostSln", "csProj" }, -- TODO: currently, not being used
 }
 function M.setup(opts)
 	if opts ~= nil then
@@ -104,7 +106,17 @@ end
 function M.GetNetCoreDbgPath()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe')
 end
+
 function M.GetOmniSharpDll()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll')
 end
+
+function M.GetDebugCwd()
+	print("Calling GetDebugCwd")
+	if GetStaticValues(vim.fs.normalize(vim.fn.getcwd() .. '/'))
+	then
+		return M.dotnet_debug_cwd
+	end
+end
+
 return M

@@ -22,13 +22,15 @@ dap.adapters.coreclr = {
 	-- command = netcoredbg_path,
 	args = { '--interpreter=vscode' },
 	options = {
-		detached = false -- Will put the output in the REPL. #CloseEnough
+		detached = false, -- Will put the output in the REPL. #CloseEnough
+		cwd = dotnet_ph.GetDebugCwd(),
 	}
 }
 
 -- Test runner looks at this table
 dap.adapters.netcoredbg = vim.deepcopy(dap.adapters.coreclr)
 
+-- TODO: This needed?
 dap.configurations.cs = {
 	{
 		type = "coreclr",
