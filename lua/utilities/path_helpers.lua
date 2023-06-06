@@ -10,7 +10,7 @@ local function GetStaticValues(path)
 	local projects = M.config.projects
 	for _, project in ipairs(projects) do
 		if project.base_path and string.find(path, project.base_path) then
-			-- TODO: nil check
+			-- TODO: nil check, if even needed.
 			dotnet_last_proj_path = project.dotnet_proj_file
 			dotnet_last_dll_path = project.dotnet_dll_path
 			dotnet_debug_cwd = project.dotnet_debug_cwd
@@ -29,13 +29,12 @@ local function dotnet_build_project()
 
 	-- Early exit if we can find the project in the config
 	if GetStaticValues(vim.fs.normalize(default_path)) then
-		print('Found project in config, using last_proj_path: ' .. dotnet_last_proj_path)
+		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
 		return
 	end
 
 	local path = vim.fn.input('Path to your *proj file', default_path, 'file')
 	dotnet_last_proj_path = path
-	-- TODO: Need to figure out how to temporarily change the cwd
 	local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
 	print('')
 	print('Cmd to execute: ' .. cmd)

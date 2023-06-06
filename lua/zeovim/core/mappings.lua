@@ -13,20 +13,20 @@ end
 set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
-set('n', '<leader>e', ":Neotree toggle <CR>", {})
-set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", {})
+set('n', '<leader>e', ":Neotree toggle <CR>", { desc = "Toggle Neotree" })
+set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", { desc = "Copy current file path to clipboard" })
 set('n', '<leader>nt', ":!start cmd /k cd %:p:h<CR>",
 	{ desc = "Opens a new terminal in current file directory" }) -- get a float term plugin and use it?
 ---------------
 -- TELESCOPE --
 ---------------
-set('n', '<leader>gb', function() builtin().git_branches() end, {})
-set('n', '<leader>gc', function() builtin().git_commits() end, {})
-set('n', '<leader>gt', function() builtin().git_status() end, {})
-set('n', '<leader>ff', function() builtin().find_files() end, {})
-set('n', '<leader>fg', function() builtin().live_grep() end, {})
-set('n', '<leader>fb', function() builtin().buffers() end, {})
-set('n', '<leader>fh', function() builtin().help_tags() end, {})
+set('n', '<leader>gb', function() builtin().git_branches() end, { desc = "Git branches"})
+set('n', '<leader>gc', function() builtin().git_commits() end, { desc = "Git commits"})
+set('n', '<leader>gt', function() builtin().git_status() end, { desc = "Git status"})
+set('n', '<leader>ff', function() builtin().find_files() end, { desc = "Find files"})
+set('n', '<leader>fg', function() builtin().live_grep() end, {desc = "Live grep"})
+set('n', '<leader>fb', function() builtin().buffers() end, { desc = "Buffers"})
+set('n', '<leader>fh', function() builtin().help_tags() end, { desc = "Help tags"})
 set('n', "<leader>fw",
 	function()
 		builtin().live_grep {
@@ -34,9 +34,10 @@ set('n', "<leader>fw",
 				return vim.list_extend(args, { "--hidden", "--no-ignore" })
 			end,
 		}
-	end
+	end,
+	{ desc = "Live Grep --hidden --no-ignore" }
 )
-set('n', '<leader>f<CR>', function() builtin().resume() end, {})
+set('n', '<leader>f<CR>', function() builtin().resume() end, { desc = "Resume Last Picker"})
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
 set('n', '<leader>q', vim.diagnostic.setloclist)
@@ -64,10 +65,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local buf = ev.buf -- TODO: anonymous funciton scoping issue?
+		-- local buf = ev.buf -- TODO: anonymous funciton scoping issue?
 		local opts = function(description)
 			return {
-				buffer = true,
+				-- buffer = true,
 				desc = description
 			}
 		end
