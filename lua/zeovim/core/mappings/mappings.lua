@@ -114,5 +114,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
-set("n", "<leader>pt",
-	"<cmd>lua ProjTerm_Toggle()<CR>", { noremap = true, silent = true, desc = "Toggle Project Term" })
