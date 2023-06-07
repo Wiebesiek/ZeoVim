@@ -2,7 +2,6 @@ local builtin = function()
 	return require('telescope.builtin')
 end
 local set = vim.keymap.set
--- TODO: saving this for potential launching of a terminal for dotnet commands.
 local current_file_dir = function()
 	return vim.fn.expand('%:p:h')
 end
@@ -115,3 +114,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
+set("n", "<leader>pt",
+	"<cmd>lua ProjTerm_Toggle()<CR>", { noremap = true, silent = true, desc = "Toggle Project Term" })
