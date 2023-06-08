@@ -5,8 +5,8 @@ irm get.scoop.sh | iex
 scoop bucket add main
 scoop bucket add versions
 
-# Install neovim-nightly
-scoop install neovim-nightly
+# Install neovim
+scoop install neovim
 
 # Install ripgrep
 scoop install main/ripgrep
