@@ -26,4 +26,6 @@ Clone config into `%USERPROFILE%\AppData\Local\nvim`
 - 🟤 Colorscheme - [Gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
 - 💻 Terminal - Windows terminal with gruvbox friendly background.
 
+## A Word On Versions
+I use this config on a windows machine and use tools for dotnet development, namely Omnisharp and Csharpier. This tooling can be susceptible to bugs that may exist in the nightly versions of Neovim as there are fewer people with similar setups. Thankfully, gone are the days where seemingly every plugin requested that you be on a nightly build. For these reasons, the best dotnet experience will be on the latest stable release of Neovim.
 
