@@ -19,11 +19,6 @@ require("lspconfig").omnisharp.setup({
 		end
 	end,
 	root_dir = function(path)
-		--[[
-		** This is standard root_dir function for omnisharp. **
-		local lspconfig_pattern = root_pattern('*.sln')(path)
-		--]]
-		local root_pattern = require('lspconfig.util').root_pattern
-		return require("utilities.path_helpers").OuterMostSln(path) or root_pattern("*.csproj")(path)
+		return require("utilities.path_helpers").GetLspRootDir(path)
 	end
 })

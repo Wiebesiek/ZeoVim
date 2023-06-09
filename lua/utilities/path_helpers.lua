@@ -1,3 +1,4 @@
+-- Dependencies: require('lspconfig.util').root_pattern	
 local M = {}
 
 local dotnet_last_proj_path = nil
@@ -108,6 +109,11 @@ end
 
 function M.GetOmniSharpDll()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll')
+end
+
+function M.GetLspRootDir(path)
+	local root_pattern = require('lspconfig.util').root_pattern
+	return M.OuterMostSln(path) or root_pattern("*.csproj")(path)
 end
 
 function M.GetDebugCwd()
