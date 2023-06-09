@@ -1,4 +1,5 @@
 -- Dependencies: require('lspconfig.util').root_pattern	
+local utils = require('utilities.path_finder.utils')
 local M = {}
 
 local dotnet_last_proj_path = nil
@@ -6,20 +7,15 @@ local dotnet_last_dll_path = nil
 local dotnet_debug_cwd = nil
 local project_found = false
 
--- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
-local function GetStaticValues(path)
-	local projects = M.config.projects
-	for _, project in ipairs(projects) do
-		if project.base_path and string.find(path, project.base_path) then
-			-- TODO: nil check, if even needed.
-			dotnet_last_proj_path = project.dotnet_proj_file
-			dotnet_last_dll_path = project.dotnet_dll_path
-			dotnet_debug_cwd = project.dotnet_debug_cwd
-			project_found = true
-			return true
-		end
+local function init_path_values(path)
+	local static_values = utils.GetStaticValues(path, M.config)
+	if static_values.project_found then
+		dotnet_last_proj_path = static_values.dotnet_last_proj_path
+		dotnet_last_dll_path = static_values.dotnet_last_dll_path
+		dotnet_debug_cwd = static_values.dotnet_debug_cwd
+		project_found = true
+		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
 	end
-	return false
 end
 
 local function dotnet_build_project()
@@ -28,8 +24,7 @@ local function dotnet_build_project()
 		default_path = dotnet_last_proj_path
 	end
 
-	-- Early exit if we can find the project in the config
-	if GetStaticValues(vim.fs.normalize(default_path)) then
+	if project_found then
 		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
 		return
 	end
@@ -118,7 +113,8 @@ end
 
 function M.GetDebugCwd()
 	print("Calling GetDebugCwd")
-	if GetStaticValues(vim.fs.normalize(vim.fn.getcwd() .. '/'))
+  init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
+	if project_found
 	then
 		return dotnet_debug_cwd
 	end

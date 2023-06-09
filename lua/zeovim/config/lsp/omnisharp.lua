@@ -2,7 +2,7 @@
 -- OMNISHARP --
 ---------------
 require("lspconfig").omnisharp.setup({
-	cmd = {"dotnet", require("utilities.path_helpers").GetOmniSharpDll()},
+	cmd = {"dotnet", require("utilities.path_finder").GetOmniSharpDll()},
 	on_attach = function(client, _)
 		-- This is a hack that is needed with omnisharp in it's current state. This the result of a bug in Rosyln.
 		if client.name == "omnisharp" then
@@ -19,6 +19,6 @@ require("lspconfig").omnisharp.setup({
 		end
 	end,
 	root_dir = function(path)
-		return require("utilities.path_helpers").GetLspRootDir(path)
+		return require("utilities.path_finder").GetLspRootDir(path)
 	end
 })

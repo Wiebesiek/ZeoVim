@@ -10,9 +10,9 @@ if (not dap_status) then
 	return
 end
 
-local ph_status, dotnet_ph = pcall(require, 'utilities.path_helpers')
+local ph_status, dotnet_ph = pcall(require, 'utilities.path_finder')
 if (not ph_status) then
-	print("path_helpers not loaded")
+	print("path_finder not loaded")
 	return
 end
 
