@@ -13,6 +13,7 @@ set('n', '<leader>ff', function() builtin().find_files() end, { desc = "Find fil
 set('n', '<leader>fg', function() builtin().live_grep() end, {desc = "Live grep"})
 set('n', '<leader>fb', function() builtin().buffers() end, { desc = "Buffers"})
 set('n', '<leader>fh', function() builtin().help_tags() end, { desc = "Help tags"})
+set('n', '<leader>fd', function() builtin().diagnostics() end, { desc = "Help tags"})
 set('n', "<leader>fw",
 	function()
 		builtin().live_grep {
