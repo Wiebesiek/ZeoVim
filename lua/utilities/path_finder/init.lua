@@ -18,52 +18,6 @@ local function init_path_values(path)
 	end
 end
 
-local function dotnet_build_project()
-	local default_path = vim.fn.getcwd() .. '/'
-	if dotnet_last_proj_path ~= nil then
-		default_path = dotnet_last_proj_path
-	end
-	local path = nil
-
-	if project_found then
-		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
-		path = dotnet_last_proj_path
-	else
-		path = vim.fn.input('Path to your *proj file', default_path, 'file')
-		dotnet_last_proj_path = path
-	end
-
-	local cmd = 'dotnet build -c Debug ' .. path
-	print('')
-	print('Cmd to execute: ' .. cmd)
-	local f = os.execute(cmd)
-	if f == 0 then
-		print('\nBuild: ✔️ ')
-	else
-		print('\nBuild: ❌ (code: ' .. f .. ')')
-	end
-end
-
-local function dotnet_get_dll_path()
-	local request = function()
-		return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-	end
-
-	if dotnet_last_dll_path == nil then
-		dotnet_last_dll_path = request()
-		print('Dll path: ' .. dotnet_last_dll_path)
-	else
-		if project_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. dotnet_last_dll_path, '&yes\n&no', 2) == 1 then
-			print('project_found: ' .. tostring(project_found))
-			dotnet_last_dll_path = request()
-			print('Dll path: ' .. dotnet_last_dll_path)
-		end
-	end
-
-	return dotnet_last_dll_path
-end
-
-
 M.config = {
 	default_lsp_root = { "outerMostSln", "csProj" }, -- TODO: currently, not being used
 }
@@ -81,9 +35,10 @@ end
 -- Entry point for dap
 function M.GetDllPath()
 	if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-		dotnet_build_project()
+		dotnet_last_proj_path = utils.dotnet_build_project(dotnet_last_proj_path, project_found)
 	end
-	return dotnet_get_dll_path()
+	dotnet_last_dll_path = utils.dotnet_get_dll_path(dotnet_last_dll_path, project_found)
+	return dotnet_last_dll_path
 end
 
 function M.GetNetCoreDbgPath()

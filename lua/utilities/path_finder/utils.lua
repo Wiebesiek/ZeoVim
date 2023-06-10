@@ -4,6 +4,11 @@ local M = {}
 function M.GetStaticValues(path, config)
 	local result = {}
 	local projects = config.projects
+
+	if(projects == nil) then
+		return result
+	end
+
 	for _, project in ipairs(projects) do
 		if project.base_path and string.find(path, project.base_path) then
 			-- TODO: nil check, if even needed.
@@ -31,4 +36,51 @@ function M.search_up_path(project_root, path, pattern_func)
 	end
 	return M.search_up_path(parent_root, parent, pattern_func)
 end
+
+function M.dotnet_build_project(last_path, proj_found)
+	local default_path = vim.fn.getcwd() .. '/'
+	if last_path ~= nil then
+		default_path = last_path
+	end
+	local result = nil
+
+	if proj_found then
+		print('Found project in config. Project file path is ' .. last_path)
+		result = last_path
+	else
+		result = vim.fn.input('Path to your *proj file', default_path, 'file')
+	end
+
+	local cmd = 'dotnet build -c Debug ' .. result
+	print('')
+	print('Cmd to execute: ' .. cmd)
+	-- TODO: This should be done in async way
+	local f = os.execute(cmd)
+	if f == 0 then
+		print('\nBuild: ✔️ ')
+	else
+		print('\nBuild: ❌ (code: ' .. f .. ')')
+	end
+	return result
+end
+
+function M.dotnet_get_dll_path(path, proj_found)
+	local request = function()
+		return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+	end
+
+	if path == nil then
+		path = request()
+		print('Dll path: ' .. path)
+	else
+		if proj_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. path, '&yes\n&no', 2) == 1 then
+			print('proj_found: ' .. tostring(proj_found))
+			path = request()
+			print('Dll path: ' .. path)
+		end
+	end
+
+	return path
+end
+
 return M
