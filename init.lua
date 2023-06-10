@@ -1,5 +1,4 @@
 require('options')
 require('zeovim.config.lazy')
 require('zeovim.core.mappings')
-require('zeovim.secrets.path_finder')
-
+pcall(require, 'zeovim.secrets.path_finder')
