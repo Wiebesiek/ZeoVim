@@ -61,20 +61,6 @@ local function dotnet_get_dll_path()
 	return dotnet_last_dll_path
 end
 
--- Recursively search up the directory tree
-local function search_up(project_root, path, pattern_func)
-	local parent = vim.fn.fnamemodify(path, ':h')
-	-- the parent of 'C:/' is 'C:/'
-	if parent == path then
-		return project_root
-	end
-	local parent_root = pattern_func(parent)
-	-- returns nil when no root is found
-	if parent_root == nil then
-		return project_root
-	end
-	return search_up(parent_root, parent, pattern_func)
-end
 
 M.config = {
 	default_lsp_root = { "outerMostSln", "csProj" }, -- TODO: currently, not being used
@@ -87,7 +73,7 @@ end
 
 function M.OuterMostSln(path)
 	local root_pattern = require('lspconfig.util').root_pattern
-	return search_up(nil, path, root_pattern('*.sln'))
+	return utils.search_up_path(nil, path, root_pattern('*.sln'))
 end
 
 -- Entry point for dap

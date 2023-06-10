@@ -18,4 +18,17 @@ function M.GetStaticValues(path, config)
 	return result
 end
 
+function M.search_up_path(project_root, path, pattern_func)
+	local parent = vim.fn.fnamemodify(path, ':h')
+	-- the parent of 'C:/' is 'C:/'
+	if parent == path then
+		return project_root
+	end
+	local parent_root = pattern_func(parent)
+	-- returns nil when no root is found
+	if parent_root == nil then
+		return project_root
+	end
+	return M.search_up_path(parent_root, parent, pattern_func)
+end
 return M
