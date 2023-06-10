@@ -23,15 +23,17 @@ local function dotnet_build_project()
 	if dotnet_last_proj_path ~= nil then
 		default_path = dotnet_last_proj_path
 	end
+	local path = nil
 
 	if project_found then
 		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
-		return
+		path = dotnet_last_proj_path
+	else
+		path = vim.fn.input('Path to your *proj file', default_path, 'file')
+		dotnet_last_proj_path = path
 	end
 
-	local path = vim.fn.input('Path to your *proj file', default_path, 'file')
-	dotnet_last_proj_path = path
-	local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
+	local cmd = 'dotnet build -c Debug ' .. path
 	print('')
 	print('Cmd to execute: ' .. cmd)
 	local f = os.execute(cmd)
@@ -99,7 +101,7 @@ end
 
 function M.GetDebugCwd()
 	print("Calling GetDebugCwd")
-  init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
+	init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
 	if project_found
 	then
 		return dotnet_debug_cwd
