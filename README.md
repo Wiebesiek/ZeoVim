@@ -11,6 +11,7 @@ My neovim config. Oriented around dotnet and typescript development on a windows
 - 🧱 [Mason](https://github.com/williamboman/mason.nvim) to allow auto install of dap, lsp, and formatters such as csharpier.
 - 🛩️ [Copilot](https://github.com/github/copilot.vim) for an AI assistant.
 - 👨‍🔬 Path helper utilites to wire up omnisharp and netcoredbg.
+  - 🪛 Optional static configuration of dll, csproj and debug cwd for projects. Allowing a *smooooth* debugging experience.
 ## 🔧 Setup
 
 ### 📦 Installation of Dependencies
