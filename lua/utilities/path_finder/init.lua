@@ -28,11 +28,6 @@ function M.setup(opts)
 	end
 end
 
-function M.OuterMostSln(path)
-	local root_pattern = require('lspconfig.util').root_pattern
-	return utils.search_up_path(nil, path, root_pattern('*.sln'))
-end
-
 -- Entry point for dap
 function M.GetDllPath()
 	if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
@@ -46,14 +41,6 @@ function M.GetNetCoreDbgPath()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe')
 end
 
-function M.GetOmniSharpDll()
-	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll')
-end
-
-function M.GetLspRootDir(path)
-	local root_pattern = require('lspconfig.util').root_pattern
-	return M.OuterMostSln(path) or root_pattern("*.csproj")(path)
-end
 
 function M.GetDebugCwd()
 	init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
