@@ -21,6 +21,7 @@ end
 M.config = {
 	default_lsp_root = { "outerMostSln", "csProj" }, -- TODO: currently, not being used
 }
+
 function M.setup(opts)
 	if opts ~= nil then
 		M.config = vim.tbl_deep_extend("force", M.config, opts)
@@ -55,7 +56,6 @@ function M.GetLspRootDir(path)
 end
 
 function M.GetDebugCwd()
-	print("Calling GetDebugCwd")
 	init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
 	if project_found
 	then
