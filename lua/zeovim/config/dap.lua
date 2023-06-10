@@ -19,7 +19,6 @@ end
 dap.adapters.coreclr = {
 	type = 'executable',
 	command = dotnet_ph.GetNetCoreDbgPath(),
-	-- command = netcoredbg_path,
 	args = { '--interpreter=vscode' },
 	options = {
 		detached = false, -- Will put the output in the REPL. #CloseEnough
