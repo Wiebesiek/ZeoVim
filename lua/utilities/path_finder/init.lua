@@ -39,7 +39,7 @@ end
 -- Entry point for dap
 function M.GetDllPath()
 	if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-		dotnet_last_proj_path = utils.dotnet_build_project2(dotnet_last_proj_path, get_proj_config_for_cwd())
+		dotnet_last_proj_path = utils.dotnet_build_project(dotnet_last_proj_path, get_proj_config_for_cwd())
 	end
 	dotnet_last_dll_path = utils.dotnet_get_dll_path(dotnet_last_dll_path, project_found)
 	return dotnet_last_dll_path
