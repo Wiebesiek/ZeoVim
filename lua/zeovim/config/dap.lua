@@ -16,6 +16,7 @@ if (not ph_status) then
 	return
 end
 
+-- used by nvim-dap
 dap.adapters.coreclr = {
 	type = 'executable',
 	command = dotnet_ph.GetNetCoreDbgPath(),
@@ -26,10 +27,10 @@ dap.adapters.coreclr = {
 	}
 }
 
--- Test runner looks at this table
+-- used by neotest Test runner looks at this table
 dap.adapters.netcoredbg = vim.deepcopy(dap.adapters.coreclr)
 
--- TODO: This needed?
+-- Used by nvim-dap
 dap.configurations.cs = {
 	{
 		type = "coreclr",

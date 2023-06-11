@@ -56,8 +56,7 @@ function M.GetDebugCwd()
 end
 
 -- nil returned when no project config, this allows default cwd to be used
--- TODO: thisi is functional in nature, needs M.GetDllPath to be switched to functional
--- before it can be used.
+-- TODO: this is functional in nature, needs M.GetDllPath to be changed
 function M.GetDebugCwd2()
 	local proj_config = utils.GetProjConfig(vim.fs.normalize(vim.fn.getcwd()), M.config)
 	return proj_config.dotnet_debug_cwd
