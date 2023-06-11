@@ -8,7 +8,7 @@ local dotnet_debug_cwd = nil
 local project_found = false
 
 local function init_path_values(path)
-	local static_values = utils.GetStaticValues(path, M.config)
+	local static_values = utils.GetProjConfig(path, M.config)
 	if static_values.project_found then
 		dotnet_last_proj_path = static_values.dotnet_last_proj_path
 		dotnet_last_dll_path = static_values.dotnet_last_dll_path

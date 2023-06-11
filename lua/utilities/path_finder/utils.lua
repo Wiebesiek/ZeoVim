@@ -1,7 +1,7 @@
 local M = {}
 
 -- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
-function M.GetStaticValues(path, config)
+function M.GetProjConfig(path, config)
 	local result = {}
 	local projects = config.projects
 
