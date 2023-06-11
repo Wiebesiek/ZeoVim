@@ -7,6 +7,10 @@ local dotnet_last_dll_path = nil
 local dotnet_debug_cwd = nil
 local project_found = false
 
+local function get_proj_config_for_cwd()
+	return utils.GetProjConfig(vim.fs.normalize(vim.fn.getcwd()), M.config)
+end
+
 local function init_path_values(path)
 	local static_values = utils.GetProjConfig(path, M.config)
 	if static_values.project_found then
@@ -16,9 +20,8 @@ local function init_path_values(path)
 		project_found = true
 		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
 	else
+		-- Don't overwrite last_proj_path and last_dll_path
 		project_found = false
-		dotnet_last_proj_path = nil
-		dotnet_last_dll_path = nil
 		dotnet_debug_cwd = nil
 	end
 end
@@ -36,7 +39,7 @@ end
 -- Entry point for dap
 function M.GetDllPath()
 	if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-		dotnet_last_proj_path = utils.dotnet_build_project(dotnet_last_proj_path, project_found)
+		dotnet_last_proj_path = utils.dotnet_build_project2(dotnet_last_proj_path, get_proj_config_for_cwd())
 	end
 	dotnet_last_dll_path = utils.dotnet_get_dll_path(dotnet_last_dll_path, project_found)
 	return dotnet_last_dll_path
@@ -58,8 +61,7 @@ end
 -- nil returned when no project config, this allows default cwd to be used
 -- TODO: this is functional in nature, needs M.GetDllPath to be changed
 function M.GetDebugCwd2()
-	local proj_config = utils.GetProjConfig(vim.fs.normalize(vim.fn.getcwd()), M.config)
-	return proj_config.dotnet_debug_cwd
+	return get_proj_config_for_cwd().dotnet_debug_cwd
 end
 
 return M

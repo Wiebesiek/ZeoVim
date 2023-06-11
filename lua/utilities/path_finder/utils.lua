@@ -15,6 +15,7 @@ function M.GetProjConfig(path, config)
 	for _, project in ipairs(projects) do
 		if project.base_path and string.find(path, project.base_path) then
 			-- TODO: nil check, if even needed.
+			-- TODO: these names make no sense
 			result.dotnet_last_proj_path = project.dotnet_proj_file
 			result.dotnet_last_dll_path = project.dotnet_dll_path
 			result.dotnet_debug_cwd = project.dotnet_debug_cwd
@@ -40,33 +41,6 @@ function M.search_up_path(project_root, path, pattern_func)
 	return M.search_up_path(parent_root, parent, pattern_func)
 end
 
-function M.dotnet_build_project(last_path, proj_found)
-	local default_path = vim.fn.getcwd() .. '/'
-	if last_path ~= nil then
-		default_path = last_path
-	end
-	local result = nil
-
-	if proj_found then
-		print('Found project in config. Project file path is ' .. last_path)
-		result = last_path
-	else
-		result = vim.fn.input('Path to your *proj file', default_path, 'file')
-	end
-
-	local cmd = 'dotnet build -c Debug ' .. result
-	print('')
-	print('Cmd to execute: ' .. cmd)
-	-- TODO: This should be done in async way
-	local f = os.execute(cmd)
-	if f == 0 then
-		print('\nBuild: ✔️ ')
-	else
-		print('\nBuild: ❌ (code: ' .. f .. ')')
-	end
-	return result
-end
-
 function M.dotnet_get_dll_path(path, proj_found)
 	local request = function()
 		return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
@@ -83,6 +57,35 @@ function M.dotnet_get_dll_path(path, proj_found)
 	end
 
 	return path
+end
+
+function M.dotnet_build_project(last_path, config)
+	local default_path = vim.fn.getcwd() .. '/'
+	if last_path ~= nil then
+		default_path = last_path
+	end
+	local result = nil
+
+	-- If project was found in config, use it
+	if config.dotnet_last_proj_path ~= nil then
+		print('Found project in config. Project file path is ' .. config.dotnet_last_proj_path)
+		result = config.dotnet_last_proj_path
+	else
+		-- If the project was not found, always ask for it, but fill in the last path
+		result = vim.fn.input('Path to your *proj file', default_path, 'file')
+	end
+
+	local cmd = 'dotnet build -c Debug ' .. result
+	print('')
+	print('Cmd to execute: ' .. cmd)
+	-- TODO: This should be done in async way
+	local f = os.execute(cmd)
+	if f == 0 then
+		print('\nBuild: ✔️ ')
+	else
+		print('\nBuild: ❌ (code: ' .. f .. ')')
+	end
+	return result
 end
 
 return M
