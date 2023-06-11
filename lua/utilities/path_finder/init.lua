@@ -15,6 +15,11 @@ local function init_path_values(path)
 		dotnet_debug_cwd = static_values.dotnet_debug_cwd
 		project_found = true
 		print('Found project in config. Project file path is ' .. dotnet_last_proj_path)
+	else
+		project_found = false
+		dotnet_last_proj_path = nil
+		dotnet_last_dll_path = nil
+		dotnet_debug_cwd = nil
 	end
 end
 
@@ -41,13 +46,21 @@ function M.GetNetCoreDbgPath()
 	return vim.fs.normalize(vim.fn.stdpath('data') .. '/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe')
 end
 
-
+-- nil returned when no project config
 function M.GetDebugCwd()
 	init_path_values(vim.fs.normalize(vim.fn.getcwd() .. '/'))
 	if project_found
 	then
 		return dotnet_debug_cwd
 	end
+end
+
+-- nil returned when no project config, this allows default cwd to be used
+-- TODO: thisi is functional in nature, needs M.GetDllPath to be switched to functional
+-- before it can be used.
+function M.GetDebugCwd2()
+	local proj_config = utils.GetProjConfig(vim.fs.normalize(vim.fn.getcwd()), M.config)
+	return proj_config.dotnet_debug_cwd
 end
 
 return M

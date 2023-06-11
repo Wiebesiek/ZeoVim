@@ -3,6 +3,9 @@ local M = {}
 -- Check to see if path is a part of the config.projects, if so set last_proj_path and last_dll_path
 function M.GetProjConfig(path, config)
 	local result = {}
+	if(config == nil) then
+		return result
+	end
 	local projects = config.projects
 
 	if(projects == nil) then
@@ -74,7 +77,6 @@ function M.dotnet_get_dll_path(path, proj_found)
 		print('Dll path: ' .. path)
 	else
 		if proj_found == false and vim.fn.confirm('Do you want to change the path to dll?\n' .. path, '&yes\n&no', 2) == 1 then
-			print('proj_found: ' .. tostring(proj_found))
 			path = request()
 			print('Dll path: ' .. path)
 		end
