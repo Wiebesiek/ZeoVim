@@ -16,7 +16,7 @@ set('n', '<leader>nt', ":ToggleTerm dir=" .. current_file_dir() .. "<CR>",
 
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
-set('n', '<leader>q', vim.diagnostic.setloclist)
+set('n', '<leader>q', vim.diagnostic.open_float)
 set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
 	{ silent = true, noremap = true }
 )
@@ -63,6 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				fname_width = 80,
 			})
 		end, opts)
+		-- TODO: this is great, but needs some formatting help
 		set('n', 'go', function() builtin().lsp_document_symbols() end, opts)
 		set('n', 'gO', function() builtin().lsp_workspace_symbols() end, opts)
 		set('n', 'K', vim.lsp.buf.hover, opts)
@@ -82,6 +83,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				async = true,
 			})
 		end, opts)
+		-- TODO: put in it's own file
 		-- DAP --
 		set('n', '<F5>', function() require 'dap'.continue() end, { desc = 'DAP: Continue' })
 		set('n', '<F7>', function() require 'dap'.step_into() end, { desc = 'DAP: Step Into' })

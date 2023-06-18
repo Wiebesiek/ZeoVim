@@ -30,6 +30,9 @@ dap.adapters.coreclr = {
 -- used by neotest Test runner looks at this table
 dap.adapters.netcoredbg = vim.deepcopy(dap.adapters.coreclr)
 
+-- useful for debugging issues with dap
+dap.set_log_level('DEBUG')
+
 -- Used by nvim-dap
 dap.configurations.cs = {
 	{
