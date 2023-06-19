@@ -4,6 +4,7 @@ return {
 		"nvim-neotest/neotest",
 		dependencies = {
 			"Issafalcon/neotest-dotnet",
+			"folke/trouble.nvim",
 		},
 		lazy = true,
 		opts = {
@@ -22,11 +23,7 @@ return {
 			output = { open_on_run = true },
 			quickfix = {
 				open = function()
-					if require("lazyvim.util").has("trouble.nvim") then
-						vim.cmd("Trouble quickfix")
-					else
-						vim.cmd("copen")
-					end
+					vim.cmd("Trouble quickfix")
 				end,
 			},
 		},
