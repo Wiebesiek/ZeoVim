@@ -16,7 +16,7 @@ return {
 		"TSUpdate",
 		"TSUpdateSync",
 	},
-	uild = ":TSUpdate",
+	build = ":TSUpdate",
 	opts = {
 		ensure_installed = {
 			"c",
