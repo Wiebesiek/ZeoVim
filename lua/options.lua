@@ -6,7 +6,7 @@ vim.o.hidden = true
 vim.o.ignorecase = true
 vim.wo.number = true
 vim.wo.relativenumber = true
-vim.wo.so = 7
+vim.wo.scrolloff = 8
 vim.wo.wrap = false
 vim.opt.termguicolors = true
 
