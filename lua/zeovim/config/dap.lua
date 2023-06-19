@@ -27,11 +27,12 @@ dap.adapters.coreclr = {
 	}
 }
 
--- used by neotest Test runner looks at this table
+-- Neotest Test runner looks at this table
 dap.adapters.netcoredbg = vim.deepcopy(dap.adapters.coreclr)
 
 -- useful for debugging issues with dap
-dap.set_log_level('DEBUG')
+-- Logs are written to :lua print(vim.fn.stdpath('cache'))
+-- dap.set_log_level('DEBUG')  -- or `TRACE` for more logs
 
 -- Used by nvim-dap
 dap.configurations.cs = {
@@ -134,14 +135,9 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
+
 vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
 vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
-
--- SET DEBUG --
-dap.set_log_level('TRACE') -- can be found at appdata\local\temp\nvim\dap.log
-
-
-
 ------------
 -- PYTHON --
 ------------
