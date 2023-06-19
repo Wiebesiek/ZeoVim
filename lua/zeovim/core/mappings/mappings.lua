@@ -36,16 +36,6 @@ set('i', '<C-j>', 'copilot#Accept("<CR>")', { noremap = true, silent = true, exp
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(ev)
-
-		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		-- local buf = ev.buf -- TODO: anonymous funciton scoping issue?
-		-- local opts = function(description)
-		-- 	return {
-		-- 		-- buffer = true,
-		-- 		desc = description
-		-- 	}
-		-- end
 		local opts = { buffer = ev.buf }
 		set('n', 'gD', vim.lsp.buf.declaration, opts)
 		-- TODO: Can these be sourced from mappings.telescope?
@@ -55,17 +45,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			builtin().lsp_references({
 				initial_mode = "insert", -- NOT DEFAULT
 				trim_text = true,
-				include_current_line = true,
-				-- path_display = { shorten = { len = 1, exclude = { -1, -2 } } },
-				-- hacky, but can't figure out how to disable non-path related text
-				-- shorten can be used in conjuction to make it cleaner in the future
 				path_display = { truncate = 20 },
 				fname_width = 80,
 			})
 		end, opts)
-		-- TODO: this is great, but needs some formatting help
-		set('n', 'go', function() builtin().lsp_document_symbols() end, opts)
-		set('n', 'gO', function() builtin().lsp_workspace_symbols() end, opts)
+		set('n', 'go', function()
+			builtin().lsp_document_symbols({symbol_width = 50})
+		end, opts)
+		set('n', 'gO', function() builtin().lsp_workspace_symbols({symbol_width = 30, path_display = {"tail"}}) end, opts)
 		set('n', 'K', vim.lsp.buf.hover, opts)
 		set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 		set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -88,8 +75,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		set('n', '<F5>', function() require 'dap'.continue() end, { desc = 'DAP: Continue' })
 		set('n', '<F7>', function() require 'dap'.step_into() end, { desc = 'DAP: Step Into' })
 		set('n', '<F8>', function() require 'dap'.step_over() end, { desc = 'DAP: Step Over' })
-		set('n', '<F12>', function() require 'dap'.step_out() end, { desc = 'DAP: Step Out' })
+		set('n', '<F9>', function() require 'dap'.step_out() end, { desc = 'DAP: Step Out' })
+		set('n', '<F12>', function() require 'dap'.close() end, { desc = 'DAP: Close' })
 		set('n', '<leader>b', function() require 'dap'.toggle_breakpoint() end, { desc = 'DAP: Toggle Breakpoint' })
 	end,
 })
-
