@@ -11,7 +11,7 @@ set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
 set('n', '<leader>e', ":Neotree toggle <CR>", { desc = "Toggle Neotree" })
 set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", { desc = "Copy current file path to clipboard" })
-set('n', '<leader>nt', ":ToggleTerm dir=" .. current_file_dir() .. "<CR>",
+set('n', '<leader>nt', ":ProjTermToggle<CR>",
 	{ desc = "Opens a new terminal in current file directory" })
 
 set('n', '[d', vim.diagnostic.goto_prev)
