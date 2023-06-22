@@ -27,6 +27,10 @@ Clone config into `%USERPROFILE%\AppData\Local\nvim`
 
 - `git clone git@github.com:Wiebesiek/ZeoVim.git`
 
+#### Optional
+
+Neorg uses an environment variable `NOTESDIR`. Set an environment variable take advantage of this.
+
 ## 🎨 Aesthetics
 
 - 🔤 Font - [Comic shans](https://github.com/shannpersand/comic-shanns) nerd font in mono.
