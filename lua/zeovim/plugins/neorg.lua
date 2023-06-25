@@ -9,6 +9,9 @@ return {
 			load = {
 				["core.defaults"] = {}, -- Loads default behaviour
 				["core.concealer"] = {}, -- Adds pretty icons to your documents
+				["core.export.markdown"] = {},
+				["core.export"] = {},
+				["core.integrations.treesitter"] = {},
 				["core.keybinds"] = {
 					config = {
 						hook = function(keybinds)
@@ -20,6 +23,7 @@ return {
 					config = {
 						workspaces = {
 							notes = "$NOTESDIR", -- Set to an environment variable
+							cpp = "$CPPDIR",
 						},
 						default_workspace = "notes",
 					},
