@@ -20,8 +20,7 @@ set('n', '<leader>q', vim.diagnostic.open_float)
 set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
 	{ silent = true, noremap = true }
 )
-
-set('n', '<c-1>', ":ZenMode<CR>", { desc = "Toggle Zen Mode" })
+set('n', '<leader>z', ":ZenMode<CR>", { desc = "Toggle Zen Mode" })
 -------------
 -- COPILOT --
 -------------
