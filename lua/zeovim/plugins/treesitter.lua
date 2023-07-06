@@ -37,7 +37,7 @@ return {
 		highlight = { enable = true }
 	},
 	config = function (_, opts)
-		require('nvim-treesitter.install').compilers = { "zig" }
+		require('nvim-treesitter.install').compilers = { "gcc", "zig" }
 		require("nvim-treesitter.configs").setup(opts)
 	end
 }
