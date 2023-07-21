@@ -2,13 +2,11 @@ local builtin = function()
 	return require('telescope.builtin')
 end
 local set = vim.keymap.set
-local current_file_dir = function()
-	return vim.fn.expand('%:p:h')
-end
 
 set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
+set('n', 's', "<Plug>(easymotion-bd-w)", { silent = true })
 set('n', '<leader>e', ":Neotree toggle <CR>", { desc = "Toggle Neotree" })
 set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", { desc = "Copy current file path to clipboard" })
 set('n', '<leader>nt', ":ProjTermToggle<CR>",
@@ -65,6 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- TODO: use telescope-ui-select
 		-- https://github.com/nvim-telescope/telescope-ui-select.nvim
 		set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+		-- Just uses language server's default
 		set('n', '<leader>F', function()
 			vim.lsp.buf.format({
 				async = true,
