@@ -12,6 +12,7 @@
   "copilot.vim": { "branch": "release", "commit": "1358e8e45ecedc53daf971924a0541ddf6224faf" },
   "gitsigns.nvim": { "branch": "main", "commit": "3ef12dfdc293969fac736a7a580d6ae1f57ea406" },
   "gruvbox.nvim": { "branch": "main", "commit": "df149bccb19a02c5c2b9fa6ec0716f0c0487feb0" },
+  "hop.nvim": { "branch": "v2", "commit": "90db1b2c61b820e230599a04fedcd2679e64bd07" },
   "lazy.nvim": { "branch": "main", "commit": "5af331ea65418dc9361769891921fdee4bcc837a" },
   "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "d381fcb78d7a562c3244e1c8f76406954649db36" },
@@ -39,7 +40,6 @@
   "toggleterm.nvim": { "branch": "main", "commit": "95204ece0f2a54c89c4395295432f9aeedca7b5f" },
   "tokyonight.nvim": { "branch": "main", "commit": "18259404c962736c70c0f670b71c976c4a5ac2bb" },
   "trouble.nvim": { "branch": "main", "commit": "2af0dd9767526410c88c628f1cbfcb6cf22dd683" },
-  "vim-easymotion": { "branch": "master", "commit": "b3cfab2a6302b3b39f53d9fd2cd997e1127d7878" },
   "vim-fugitive": { "branch": "master", "commit": "43f18ab9155c853a84ded560c6104e6300ad41da" },
   "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" },
   "zen-mode.nvim": { "branch": "main", "commit": "68f554702de63f4b7b6b6d4bcb10178f41a0acc7" }

@@ -6,7 +6,7 @@ local set = vim.keymap.set
 set('v', '<c-C>', '"*y')
 set('n', '<C-j>', ":cn<CR>")
 set('n', '<C-k>', ":cp<CR>")
-set('n', 's', "<Plug>(easymotion-bd-w)", { silent = true })
+set('n', 's', ":HopWord<CR>", { silent = true })
 set('n', '<leader>e', ":Neotree toggle <CR>", { desc = "Toggle Neotree" })
 set('n', '<leader><C-g>', ":let @+ = expand('%:p')<CR>", { desc = "Copy current file path to clipboard" })
 set('n', '<leader>nt', ":ProjTermToggle<CR>",
