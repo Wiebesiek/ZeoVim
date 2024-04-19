@@ -6,7 +6,7 @@ return {
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 	},
-branch = "v2.x",
+branch = "v3.x",
 	opts = {
 		close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = "rounded",
@@ -140,6 +140,9 @@ branch = "v2.x",
 		},
 		nesting_rules = {},
 		filesystem = {
+			follow_current_file = {
+				enabled = true
+			},
 			filtered_items = {
 				visible = false, -- when true, they will just be displayed differently than normal items
 				hide_dotfiles = true,
@@ -163,7 +166,6 @@ branch = "v2.x",
 					--".null-ls_*",
 				},
 			},
-			follow_current_file = true, -- This will find and focus the file in the active buffer every
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = false, -- when true, empty folders will be grouped together
 			hijack_netrw_behavior = "disabled", -- NOT DEFAULT
@@ -199,7 +201,9 @@ branch = "v2.x",
 			commands = {} -- Add a custom command or override a global one using the same function name
 		},
 		buffers = {
-			follow_current_file = true, -- This will find and focus the file in the active buffer every
+			follow_current_file = {
+				enabled = true
+			},
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = true, -- when true, empty folders will be grouped together
 			show_unloaded = true,
