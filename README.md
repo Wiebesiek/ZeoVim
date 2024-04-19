@@ -27,7 +27,7 @@ Clone config into `%USERPROFILE%\AppData\Local\nvim`
 
 - `git clone git@github.com:Wiebesiek/ZeoVim.git`
 
-## 🧱 Mason
+### 🧱 Mason
 
 Mason is a package manager that allows for the installation of LSP, DAP, and formatters. It is used in this config to install omnisharp and csharpier. Currently, the most recent version of omnisharp is [broken](https://github.com/OmniSharp/omnisharp-roslyn/issues/2574) for nvim. Install version 1.39.8 with the following command:
 `MasonInstall omnisharp@v1.39.8`
