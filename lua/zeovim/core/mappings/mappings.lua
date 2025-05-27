@@ -23,6 +23,7 @@ set('n', '<leader>z', ":ZenMode<CR>", { desc = "Toggle Zen Mode" })
 -- COPILOT --
 -------------
 set('i', '<C-j>', 'copilot#Accept("<CR>")', { noremap = true, silent = true, expr = true, replace_keycodes = false })
+set('n', '<leader>cc', ':CopilotChat<CR>', { desc = "Open Copilot Panel" })
 
 
 --- TODO: Move to mappings.lsp
