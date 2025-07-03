@@ -31,6 +31,7 @@ return {
 			"python",
 			"sql",
 			"typescript",
+			"yaml",
 			"vue",
 		},
 		indent = { enable = true },

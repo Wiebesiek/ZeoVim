@@ -1,5 +1,5 @@
 return {
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 	event = { "BufReadPost", "BufNewFile" },
 	dependencies = { "jay-babu/mason-null-ls.nvim" },
 	opts = function()
